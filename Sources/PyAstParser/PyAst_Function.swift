@@ -10,24 +10,28 @@ import Foundation
 import PythonSwiftCore
 
 
-class PyAst_Function: PyAstObject {
+public class PyAst_Function: PyAstObject {
     
-    var type: AstType = .FunctionDef
+    public var type: AstType = .FunctionDef
     
     var repr: String {
         //.init(value.__dict__.__repr__().pyObject)
         ""
     }
-    var name: String
-    var body: [PyAstObject] = []
-    var args: [PyAst_Arg]
-    var keywords: [PyAstObject] = []
-    var decorator_list: [PyAstObject] = []
+    public var name: String
+    public var body: [PyAstObject] = []
+    public var args: [PyAst_Arg]
+    public var keywords: [PyAstObject] = []
+    public var decorator_list: [PyAstObject] = []
+    public var returns: PyAst_Name?
     
-    required init(_ v: PythonObject) {
+    required public init(_ v: PythonObject) {
+        print("PyAst_Function dict:")
+        v.print_dict()
         name = .init(v.name)
         let _args = v.args
         args = _args.args.map(PyAst_Arg.init)
+        returns = .init(v.returns)
     }
     
     func handleArgs(args: PythonObject) {

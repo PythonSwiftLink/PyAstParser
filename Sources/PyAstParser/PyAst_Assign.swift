@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import PythonLib
+//import PythonLib
 import PythonSwiftCore
 
 
@@ -17,9 +17,9 @@ public class PyAst_Assign: PyAstObject {
     
     public var name: String {targets.first?.name ?? "nil"}
     
-    var targets: [PyAstObject]
+    public var targets: [PyAstObject]
     
-    var value: PyAstObject?
+    public var value: PyAstObject?
     
     required public init(_ v: PythonSwiftCore.PythonObject) {
         
@@ -33,11 +33,10 @@ public class PyAst_Assign: PyAstObject {
         
         switch v.value {
         case let obj where obj.IsInstance(Ast.Name):
-            let astname = PyAst_Name(obj)
+            value = PyAst_Name(obj)
             fatalError()
         case let obj where obj.IsInstance(Ast.Call):
             print("Handling Ast.Call")
-            let call = PyAst_Call(obj)
             value = PyAst_Call(obj)
             print("handled Ast.Call")
             //fatalError()

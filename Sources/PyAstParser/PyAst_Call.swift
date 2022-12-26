@@ -7,21 +7,21 @@
 //
 
 import Foundation
-import PythonLib
+//import PythonLib
 import PythonSwiftCore
 
-class PyAst_Call: PyAstObject {
+public class PyAst_Call: PyAstObject {
     
-    let type: AstType = .Call
+    public let type: AstType = .Call
     
-    var _func: PyAst_Name
+    public var _func: PyAst_Name
     
-    var args: [PyAst_Name]
+    public var args: [PyAst_Name]
     
+    public var keywords: [PyAst_Keyword]
+    public var name: String { _func.id }
     
-    var name: String { "" }
-    
-    required init(_ v: PythonSwiftCore.PythonObject) {
+    required public init(_ v: PythonSwiftCore.PythonObject) {
         _func = .init(v.func)
         args = v.args.map({ arg in
             if arg.IsInstance(Ast.Name) {
@@ -29,8 +29,11 @@ class PyAst_Call: PyAstObject {
             }
             fatalError()
         })
+        
+        keywords = v.keywords.map(PyAst_Keyword.init)
+        
         print(self)
-        //v.print_dict()
+        v.print_dict()
     }
     
     

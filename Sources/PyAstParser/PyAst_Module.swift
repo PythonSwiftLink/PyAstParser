@@ -10,22 +10,22 @@ import Foundation
 import PythonSwiftCore
 
 
-class PyAst_Module: PyAstObject {
+public class PyAst_Module: PyAstObject {
     
     
-    var type: AstType = .Module
+    public var type: AstType = .Module
     
     var repr: String {
         ""
     }
     
-    var body: [PyAstObject]
+    public var body: [PyAstObject]
     
-    var name: String {
+    public var name: String {
         ""
     }
     
-    required init(_ v: PythonObject) {
+    required public init(_ v: PythonObject) {
         body = []
         print( self )
         v.print_dict()

@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import PythonLib
+//import PythonLib
 import PythonSwiftCore
 
-class PyAst_Class: PyAstObject {
-    var type: AstType = .ClassDef
+public class PyAst_Class: PyAstObject {
+    public var type: AstType = .ClassDef
     
     
     
@@ -19,13 +19,13 @@ class PyAst_Class: PyAstObject {
         //.init(value.__dict__.__repr__().pyObject)
         ""
     }
-    var name: String
-    var body: [PyAstObject] = []
-    var bases: [PyAstObject] = []
-    var keywords: [PyAstObject] = []
-    var decorator_list: [PyAstObject] = []
+    public var name: String
+    public var body: [PyAstObject] = []
+    public var bases: [PyAstObject] = []
+    public var keywords: [PyAstObject] = []
+    public var decorator_list: [PyAstObject] = []
     
-    required init(_ v: PythonObject) {
+    public required init(_ v: PythonObject) {
         name = .init(v.name)
         print(self)
         //v.print_dict()
