@@ -21,8 +21,8 @@ public class PyAst_ImportFrom: PyAstObject {
     }
     
     required public init(_ v: PythonSwiftCore.PythonObject) {
-        print(self)
-        v.print_dict()
+//        print(self)
+//        v.print_dict()
     }
     
     

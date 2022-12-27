@@ -977,7 +977,7 @@ public class PyAst_Arg: PyAstObject {
     public var annotation: PyAstObject?
     
     required public init(_ v: PythonObject) {
-        print("PyAst_Arg init:")
+        //print("PyAst_Arg init:")
         arg = .init( v.arg)
         
         let anno = v.annotation
@@ -985,7 +985,7 @@ public class PyAst_Arg: PyAstObject {
             //anno.print_dict()
             annotation = handlePyAst(anno)
         }
-        print(self, name)
+        //print(self, name)
     }
     
 
@@ -1005,7 +1005,7 @@ public class PyAst_Annotation: PyAstObject {
     
     required public init(_ v: PythonObject) {
         id = .init(v.id)
-        print(self)
+        //print(self)
         //v.print_dict()
     }
 }
@@ -1042,10 +1042,10 @@ public class PyAst_Subscript: PyAstObject {
             fatalError()
         }
         
-        
-        print(self)
-        //v.print_dict()
-        print(value.name)
+//
+//        print(self)
+//        //v.print_dict()
+//        print(value.name)
         
     }
     
@@ -1061,8 +1061,9 @@ class PyAst_Slice: PyAstObject {
     }
     
     required init(_ v: PythonSwiftCore.PythonObject) {
-        print(self)
+        //print(self)
         //v.print_dict()
+        fatalError("\(self)")
     }
     
     
@@ -1080,7 +1081,8 @@ public class PyAst_Expression: PyAstObject {
     
     required public init(_ v: PythonObject) {
         
-        print(self)
+        //print(self)
+        fatalError("\(self)")
         //v.print_dict()
     }
 }
@@ -1122,7 +1124,7 @@ public class PyAst_Name: PyAstObject {
             
             id = _id.isNone ? "None": String(_id)
         }
-        print(self)
+        //print(self)
         ////v.print_dict()
     }
 

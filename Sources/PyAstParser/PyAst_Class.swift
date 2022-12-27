@@ -27,7 +27,7 @@ public class PyAst_Class: PyAstObject {
     
     public required init(_ v: PythonObject) {
         name = .init(v.name)
-        print(self)
+        //print(self)
         //v.print_dict()
         
         body = v.body.map(handlePyAst)

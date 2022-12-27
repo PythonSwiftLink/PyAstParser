@@ -34,23 +34,18 @@ public class PyAst_Assign: PyAstObject {
         switch v.value {
         case let obj where obj.IsInstance(Ast.Name):
             value = PyAst_Name(obj)
-            fatalError()
         case let obj where obj.IsInstance(Ast.Call):
-            print("Handling Ast.Call")
             value = PyAst_Call(obj)
-            print("handled Ast.Call")
-            //fatalError()
         case let obj where obj.IsInstance(Ast.Expr):
-            fatalError()
+            value = PyAst_Expression(obj)
         case let obj where obj.IsInstance(Ast.Subscript):
-            //let _subscript = PyAst_Subscript(obj)
-            fatalError()
+            value = PyAst_Subscript(obj)
         default:
             v.value.print_dict()
             fatalError()
         }
         
-        print(self)
+        //print(self)
         //v.print_dict()
         
         

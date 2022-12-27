@@ -14,10 +14,6 @@ public class PyAst_Function: PyAstObject {
     
     public var type: AstType = .FunctionDef
     
-    var repr: String {
-        //.init(value.__dict__.__repr__().pyObject)
-        ""
-    }
     public var name: String
     public var body: [PyAstObject] = []
     public var args: [PyAst_Arg]
@@ -26,8 +22,8 @@ public class PyAst_Function: PyAstObject {
     public var returns: PyAst_Name?
     
     required public init(_ v: PythonObject) {
-        print("PyAst_Function dict:")
-        v.print_dict()
+//        print("PyAst_Function dict:")
+//        v.print_dict()
         name = .init(v.name)
         let _args = v.args
         args = _args.args.map(PyAst_Arg.init)

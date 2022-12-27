@@ -27,13 +27,13 @@ public class PyAst_Call: PyAstObject {
             if arg.IsInstance(Ast.Name) {
                 return .init(arg)
             }
-            fatalError()
+            fatalError("Ast.Name only handled so far")
         })
         
         keywords = v.keywords.map(PyAst_Keyword.init)
         
-        print(self)
-        v.print_dict()
+//        print(self)
+//        v.print_dict()
     }
     
     
