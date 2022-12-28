@@ -30,11 +30,5 @@ public class PyAst_Function: PyAstObject {
         returns = .init(v.returns)
     }
     
-    func handleArgs(args: PythonObject) {
-        for element in args.args {
-            let arg = PyAst_Arg(element)
-            self.args.append(arg)
-        }
-    }
     
 }
