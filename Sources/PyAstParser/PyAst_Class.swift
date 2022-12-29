@@ -20,10 +20,10 @@ public class PyAst_Class: PyAstObject {
         ""
     }
     public var name: String
-    public var body: [PyAstObject] = []
+    public var body: [PyAstObject]
     public var bases: [PyAstObject] = []
     public var keywords: [PyAstObject] = []
-    public var decorator_list: [PyAstObject] = []
+    public var decorator_list: [PyAstObject]
     
     public required init(_ v: PythonObject) {
         name = .init(v.name)
@@ -32,7 +32,16 @@ public class PyAst_Class: PyAstObject {
         
         body = v.body.map(handlePyAst)
         decorator_list = v.decorator_list.map(handlePyAst)
-        
+//        if !decorator_list.isEmpty {
+//            print(decorator_list)
+//            if decorator_list.contains(where: { obj in
+//                obj is PyAst_Call
+//            }) {
+//                //fatalError()
+//            }
+//
+//        }
+        //print("---- PyAst_Class \(name) handled")
         
         
     }

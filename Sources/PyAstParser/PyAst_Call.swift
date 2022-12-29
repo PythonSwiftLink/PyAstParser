@@ -22,6 +22,8 @@ public class PyAst_Call: PyAstObject {
     public var name: String { _func.id }
     
     required public init(_ v: PythonSwiftCore.PythonObject) {
+        //print("PyAst_Call:")
+        //v.print_dict()
         _func = .init(v.func)
         args = v.args.map({ arg in
             if arg.IsInstance(Ast.Name) {
@@ -32,7 +34,7 @@ public class PyAst_Call: PyAstObject {
         
         keywords = v.keywords.map(PyAst_Keyword.init)
         
-//        print(self)
+        //print(self)
 //        v.print_dict()
     }
     

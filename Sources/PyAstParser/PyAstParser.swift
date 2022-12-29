@@ -115,6 +115,7 @@ public protocol PyAstObject {
 
 
 public func handlePyAst(_ v: PythonObject) -> PyAstObject {
+    //v._print()
     switch v {
         
     case let obj where obj.IsInstance(Ast.Module):
@@ -124,11 +125,13 @@ public func handlePyAst(_ v: PythonObject) -> PyAstObject {
     case let obj where obj.IsInstance(Ast.FunctionDef):
         return PyAst_Function(obj)
     case let obj where obj.IsInstance(Ast.Constant):
-        fatalError()
+        //obj.print_dict()
+        return PyAst_Constant(obj)
+        //fatalError()
     case let obj where obj.IsInstance(Ast.Name):
         return PyAst_Name(obj)
     case let obj where obj.IsInstance(Ast.Expr):
-        fatalError()
+        return PyAst_Expression(obj)
     case let obj where obj.IsInstance(Ast.Assign):
         return PyAst_Assign(obj)
     case let obj where obj.IsInstance(Ast.AnnAssign):
@@ -137,6 +140,8 @@ public func handlePyAst(_ v: PythonObject) -> PyAstObject {
         return PyAst_ImportFrom(obj)
     case let obj where obj.IsInstance(Ast.Subscript):
         return PyAst_Subscript(obj)
+    case let obj where obj.IsInstance(Ast.Call):
+        return PyAst_Call(obj)
     default:
         print()
         pyPrint(v.ptr)
