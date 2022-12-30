@@ -13,15 +13,12 @@ public class PyAst_Arg: PyAstObject {
     public var annotation: PyAstObject?
     
     required public init(_ v: PythonObject) {
-        //print("PyAst_Arg init:")
         arg = .init( v.arg)
         
         let anno = v.annotation
         if !anno.isNone {
-            //anno.print_dict()
             annotation = handlePyAst(anno)
         }
-        //print(self, name)
     }
     
     
