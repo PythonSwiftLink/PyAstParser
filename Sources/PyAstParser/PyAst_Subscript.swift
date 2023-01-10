@@ -30,7 +30,12 @@ public class PyAst_Subscript: PyAstObject {
         switch v.slice {
         case let obj where obj.IsInstance(Ast.Name):
             slice = PyAst_Name(obj)
+        case let obj where obj.IsInstance(Ast.Tuple):
+            slice = PyAst_Tuple(obj)
+        case let obj where obj.IsInstance(Ast.List):
+            slice = PyAst_List(obj)
         default:
+            v.slice._print()
             v.slice.print_dict()
             fatalError()
         }
