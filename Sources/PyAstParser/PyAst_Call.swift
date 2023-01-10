@@ -16,7 +16,7 @@ public class PyAst_Call: PyAstObject {
     
     public var _func: PyAst_Name
     
-    public var args: [PyAst_Name]
+    public var args: [PyAstObject]
     
     public var keywords: [PyAst_Keyword]
     public var name: String { _func.id }
@@ -26,10 +26,11 @@ public class PyAst_Call: PyAstObject {
         //v.print_dict()
         _func = .init(v.func)
         args = v.args.map({ arg in
-            if arg.IsInstance(Ast.Name) {
-                return .init(arg)
-            }
-            fatalError("Ast.Name only handled so far")
+//            if arg.IsInstance(Ast.Name) {
+//                return PyAst_Name(arg)
+//            }
+//            fatalError("Ast.Name only handled so far")
+            handlePyAst(arg)
         })
         
         keywords = v.keywords.map(PyAst_Keyword.init)
