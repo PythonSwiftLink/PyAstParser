@@ -27,8 +27,8 @@ public enum AstType {
     case AnnAssign
     
     case Arg
-    
-    
+    case Tuple
+    case List
     
 }
 
@@ -92,6 +92,7 @@ public class Ast {
     public static let Pow =  PyObject_GetAttrString(py_cls, "Pow")
     
     
+    
     init() {
         
     }
@@ -142,6 +143,8 @@ public func handlePyAst(_ v: PythonObject) -> PyAstObject {
         return PyAst_Subscript(obj)
     case let obj where obj.IsInstance(Ast.Call):
         return PyAst_Call(obj)
+    case let obj where obj.IsInstance(Ast.List):
+        return PyAst_List(obj)
     default:
         print()
         pyPrint(v.ptr)
