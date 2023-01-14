@@ -12,8 +12,7 @@ public class PyAst_Slice: PyAstObject {
     }
     
     required public init(_ v: PythonSwiftCore.PythonObject) {
-        //print(self)
-        //v.print_dict()
+
         fatalError("\(self)")
     }
     

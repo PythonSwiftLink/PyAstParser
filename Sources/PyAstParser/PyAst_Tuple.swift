@@ -14,9 +14,7 @@ public class PyAst_Tuple: PyAstObject {
     public required init(_ v: PythonObject) {
         
         elts = v.elts.map(handlePyAst)
-//        print(self)
-//        v.print_dict()
-//        //fatalError()
+
     }
     
     

@@ -19,8 +19,7 @@ public class PyAst_Keyword: PyAstObject {
     public var value: PyAstObject
     
     required public init(_ v: PythonSwiftCore.PythonObject) {
-        //print("PyAst_Keyword:")
-        //v.print_dict()
+
         arg = .init(v.arg)
         
         value = handlePyAst(v.value)

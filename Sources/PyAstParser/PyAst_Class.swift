@@ -27,22 +27,10 @@ public class PyAst_Class: PyAstObject {
     
     public required init(_ v: PythonObject) {
         name = .init(v.name)
-        //print(self)
-        //v.print_dict()
-        
+
         body = v.body.map(handlePyAst)
         decorator_list = v.decorator_list.map(handlePyAst)
-//        if !decorator_list.isEmpty {
-//            print(decorator_list)
-//            if decorator_list.contains(where: { obj in
-//                obj is PyAst_Call
-//            }) {
-//                //fatalError()
-//            }
-//
-//        }
-        //print("---- PyAst_Class \(name) handled")
-        
+
         
     }
     

@@ -22,21 +22,12 @@ public class PyAst_Call: PyAstObject {
     public var name: String { _func.id }
     
     required public init(_ v: PythonSwiftCore.PythonObject) {
-        //print("PyAst_Call:")
-        //v.print_dict()
+
         _func = .init(v.func)
-        args = v.args.map({ arg in
-//            if arg.IsInstance(Ast.Name) {
-//                return PyAst_Name(arg)
-//            }
-//            fatalError("Ast.Name only handled so far")
-            handlePyAst(arg)
-        })
+        args = v.args.map(handlePyAst)
         
         keywords = v.keywords.map(PyAst_Keyword.init)
-        
-        //print(self)
-//        v.print_dict()
+
     }
     
     

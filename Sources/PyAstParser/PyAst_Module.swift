@@ -23,12 +23,9 @@ public class PyAst_Module: PyAstObject {
     }
     
     required public init(_ v: PythonObject) {
-//        print( self )
-//        v.print_dict()
+
         body = v.body.map(handlePyAst)
         
-        
-        //fatalError("module done")
     }
     
 }

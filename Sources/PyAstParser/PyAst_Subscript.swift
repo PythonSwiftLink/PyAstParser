@@ -39,11 +39,7 @@ public class PyAst_Subscript: PyAstObject {
             v.slice.print_dict()
             fatalError()
         }
-        
-        //
-        //        print(self)
-        //        //v.print_dict()
-        //        print(value.name)
+
         
     }
     

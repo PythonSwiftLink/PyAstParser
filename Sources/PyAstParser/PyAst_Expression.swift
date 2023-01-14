@@ -11,11 +11,8 @@ public class PyAst_Expression: PyAstObject {
     public var value: PyAst_Constant
     
     required public init(_ v: PythonObject) {
-        
-        //print(self)
-        //v.print_dict()
+
         value = .init(v.value)
-        //fatalError("\(self)")
-        //v.print_dict()
+
     }
 }

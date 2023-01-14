@@ -17,12 +17,8 @@ public class PyAst_Name: PyAstObject {
             id = "void"
         } else {
             let _id = v.id
-            
-            
             id = _id.isNone ? "None": String(_id)
         }
-        //print(self)
-        ////v.print_dict()
     }
     
     
