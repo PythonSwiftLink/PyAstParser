@@ -21,7 +21,7 @@ public class PyAst_Annotation: PyAstObject {
     
     
     required public init(_ v: PythonObject) {
-        id = .init(v.id)
+        id = (try? .init(object: v.id.ptr)) ?? ""
         //print(self)
         //v.print_dict()
     }

@@ -158,3 +158,18 @@ protocol PyAstProtocol: RawRepresentable {
 }
 
 
+extension String {
+    init?(object: PythonObject) {
+        let ptr = object.ptr
+        guard ptr != nil else { fatalError() }
+        
+        if PythonUnicode_Check(object.ptr) {
+            self.init(cString: PyUnicode_AsUTF8(object.ptr))
+        } else {
+            let str = PyUnicode_FromObject(object.ptr)
+            self.init(cString: PyUnicode_AsUTF8(str))
+            str?.decref()
+        }
+        
+    }
+}

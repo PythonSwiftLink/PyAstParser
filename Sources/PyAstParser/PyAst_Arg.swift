@@ -13,7 +13,7 @@ public class PyAst_Arg: PyAstObject {
     public var annotation: PyAstObject?
     
     required public init(_ v: PythonObject) {
-        arg = .init( v.arg)
+        arg = .init(object: v.arg) ?? "None"
         
         let anno = v.annotation
         if !anno.isNone {

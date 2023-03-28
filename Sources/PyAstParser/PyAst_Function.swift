@@ -22,8 +22,7 @@ public class PyAst_Function: PyAstObject {
     public var returns: PyAst_Name?
     
     required public init(_ v: PythonObject) {
-
-        name = .init(v.name)
+        name = .init(object: v.name) ?? "None"
         let _args = v.args
         args = _args.args.map(PyAst_Arg.init)
         decorator_list = v.decorator_list.map(handlePyAst)

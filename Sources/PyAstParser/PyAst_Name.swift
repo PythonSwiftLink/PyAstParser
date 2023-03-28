@@ -17,7 +17,7 @@ public class PyAst_Name: PyAstObject {
             id = "void"
         } else {
             let _id = v.id
-            id = _id.isNone ? "None": String(_id)
+            id = _id.isNone ? "None": ((try? String(object: _id.ptr)) ?? "None")
         }
     }
     

@@ -20,7 +20,7 @@ public class PyAst_Keyword: PyAstObject {
     
     required public init(_ v: PythonSwiftCore.PythonObject) {
 
-        arg = .init(v.arg)
+        arg = (try? .init(object: v.id.ptr)) ?? "None"
         
         value = handlePyAst(v.value)
     }

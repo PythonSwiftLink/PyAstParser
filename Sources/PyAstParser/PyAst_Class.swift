@@ -26,7 +26,7 @@ public class PyAst_Class: PyAstObject {
     public var decorator_list: [PyAstObject]
     
     public required init(_ v: PythonObject) {
-        name = .init(v.name)
+        name = .init(object: v.name) ?? "None"
 
         body = v.body.map(handlePyAst)
         decorator_list = v.decorator_list.map(handlePyAst)

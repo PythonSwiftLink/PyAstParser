@@ -26,7 +26,7 @@ public class PyAst_Constant: PyAstObject {
         if PythonBool_Check(_value) {
             value = _value == PythonTrue ? "true": "false"
         } else {
-            value = .init(_value) ?? "nil"
+            value = (try? .init(object: _value)) ?? "nil"
         }
 
     }
