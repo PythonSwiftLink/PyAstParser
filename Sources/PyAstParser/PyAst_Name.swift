@@ -18,6 +18,7 @@ public class PyAst_Name: PyAstObject {
         } else {
             //let _id = v.id
             //id = _id.isNone ? "None": String(object: _id)) ?? "None")
+            
             id = .init(object: v.id) ?? "None"
         }
     }
