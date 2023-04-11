@@ -21,8 +21,12 @@ public class PyAst_Annotation: PyAstObject {
     
     
     required public init(_ v: PythonObject) {
-        id = (try? .init(object: v.id.ptr)) ?? ""
-        //print(self)
-        //v.print_dict()
+        //id = (try? .init(object: v.id.ptr ?? .PyNone)) ?? ""
+        if let id_ptr = v.id.ptr, let _id = try? String(object: id_ptr) {
+            id = _id
+        } else {
+            id = ""
+        }
+
     }
 }

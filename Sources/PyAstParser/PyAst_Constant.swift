@@ -21,14 +21,19 @@ public class PyAst_Constant: PyAstObject {
     public let type: AstType = .Constant
     
     public required init(_ v: PythonSwiftCore.PythonObject) {
-
+        
         let _value = v.value.ptr
-        if PythonBool_Check(_value) {
-            value = _value == PythonTrue ? "true": "false"
-        } else {
-            value = (try? .init(object: _value)) ?? "nil"
+        
+        switch _value {
+            
+        case let _bool where PythonBool_Check(_value):
+            value = _bool == PythonTrue ? "true": "false"
+        case let _str where PythonUnicode_Check(_value):
+            value = _str!.string
+        default:
+            value = "nil"
         }
-
+        
     }
     
     

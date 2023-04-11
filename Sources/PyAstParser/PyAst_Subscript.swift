@@ -34,6 +34,9 @@ public class PyAst_Subscript: PyAstObject {
             slice = PyAst_Tuple(obj)
         case let obj where obj.IsInstance(Ast.List):
             slice = PyAst_List(obj)
+        case let obj where obj.IsInstance(Ast.Subscript):
+            slice = PyAst_Subscript(obj)
+            //fatalError()
         default:
             v.slice._print()
             v.slice.print_dict()

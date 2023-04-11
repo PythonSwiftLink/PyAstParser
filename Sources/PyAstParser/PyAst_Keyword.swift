@@ -19,8 +19,14 @@ public class PyAst_Keyword: PyAstObject {
     public var value: PyAstObject
     
     required public init(_ v: PythonSwiftCore.PythonObject) {
-
-        arg = (try? .init(object: v.arg.ptr)) ?? "None"
+        
+        //arg = (try? .init(object: v.arg.ptr)) ?? "None"
+        
+        if let arg_ptr = v.arg.ptr, let _arg = try? String(object: arg_ptr) {
+            arg = _arg
+        } else {
+            arg = "None"
+        }
         
         value = handlePyAst(v.value)
     }
