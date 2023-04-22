@@ -30,6 +30,8 @@ public class PyAst_Constant: PyAstObject {
             value = _bool == PythonTrue ? "true": "false"
         case let _str where PythonUnicode_Check(_value):
             value = _str!.string
+        case let _none where _none == PythonNone:
+            value = "None"
         default:
             value = "nil"
         }

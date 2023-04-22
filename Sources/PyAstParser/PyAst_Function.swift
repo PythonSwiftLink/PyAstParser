@@ -19,7 +19,7 @@ public class PyAst_Function: PyAstObject {
     public var args: [PyAst_Arg]
     public var keywords: [PyAstObject] = []
     public var decorator_list: [PyAstObject]
-    public var returns: PyAst_Name?
+    public var returns: PyAstObject?
     
     required public init(_ v: PythonObject) {
         name = .init(object: v.name) ?? "None"
@@ -28,7 +28,7 @@ public class PyAst_Function: PyAstObject {
         decorator_list = v.decorator_list.map(handlePyAst)
 
         
-        returns = .init(v.returns)
+        returns = handlePyAst(v.returns)
     }
     
     

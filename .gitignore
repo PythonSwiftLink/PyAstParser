@@ -2,3 +2,6 @@
 Sources/.DS_Store
 Sources/PyAstParser/.DS_Store
 .swiftpm/xcode/xcuserdata/musicmaker.xcuserdatad/xcschemes/xcschememanagement.plist
+Package.resolved
+.swiftpm/xcode/package.xcworkspace/xcuserdata/musicmaker.xcuserdatad/UserInterfaceState.xcuserstate
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata

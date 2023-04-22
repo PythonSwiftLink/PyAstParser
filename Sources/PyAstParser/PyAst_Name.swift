@@ -14,7 +14,7 @@ public class PyAst_Name: PyAstObject {
     public required init(_ v: PythonObject) {
         
         if v.isNone {
-            id = "void"
+            id = "None"
         } else {
             id = .init(object: v.id) ?? "None"
         }

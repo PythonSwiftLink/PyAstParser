@@ -149,6 +149,10 @@ public func handlePyAst(_ v: PythonObject) -> PyAstObject {
         return PyAst_List(obj)
     case let obj where obj.IsInstance(Ast.Dict):
         return PyAst_Dict(obj)
+    case let obj where obj.IsInstance(Ast.Tuple):
+        return PyAst_Tuple(obj)
+    case let obj where obj.isNone:
+        return PyAst_Name(obj)
     default:
         print()
         pyPrint(v.ptr ?? .PyNone)
