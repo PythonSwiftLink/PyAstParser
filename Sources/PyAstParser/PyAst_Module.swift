@@ -12,6 +12,7 @@ import PythonSwiftCore
 
 public class PyAst_Module: PyAstObject {
     
+    public var description: String { name }
     
     public var type: AstType = .Module
 

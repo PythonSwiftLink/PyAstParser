@@ -10,6 +10,9 @@ import Foundation
 import PythonSwiftCore
 
 public class PyAst_Keyword: PyAstObject {
+    
+    public var description: String { name }
+    
     public var name: String { arg }
     
     public let type: AstType = .Keyword
@@ -33,3 +36,5 @@ public class PyAst_Keyword: PyAstObject {
     
     
 }
+
+

@@ -11,6 +11,8 @@ import PythonLib
 
 public class PyAst_Constant: PyAstObject {
     
+    public var description: String { name }
+    
     var value: String
     
     

@@ -107,15 +107,13 @@ public class Ast {
 }
 
 
-public protocol PyAstObject {
+public protocol PyAstObject: CustomStringConvertible {
     
     var name: String { get }
     
     var type: AstType { get }
     
     init(_ v: PythonObject)
-    
-    
     
 }
 

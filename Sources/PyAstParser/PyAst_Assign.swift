@@ -12,6 +12,8 @@ import PythonSwiftCore
 
 
 public class PyAst_Assign: PyAstObject {
+    public var description: String { name }
+    
     
     public let type: AstType = .Assign
     

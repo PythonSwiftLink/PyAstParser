@@ -9,6 +9,8 @@ import Foundation
 import PythonSwiftCore
 
 public class PyAst_Annotation: PyAstObject {
+    public var description: String { id }
+    
     
     public let type: AstType = .Annotation
     

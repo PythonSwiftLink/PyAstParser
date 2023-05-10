@@ -12,6 +12,8 @@ import PythonSwiftCore
 
 public class PyAst_Function: PyAstObject {
     
+    public var description: String { name }
+    
     public var type: AstType = .FunctionDef
     
     public var name: String

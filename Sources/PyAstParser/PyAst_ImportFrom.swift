@@ -14,6 +14,8 @@ import PythonSwiftCore
 
 public class PyAst_ImportFrom: PyAstObject {
     
+    public var description: String { name }
+    
     public var type: AstType = .ImportFrom
     
     public var name: String {

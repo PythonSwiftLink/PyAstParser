@@ -5,6 +5,8 @@ import PythonSwiftCore
 
 public class PyAst_Tuple: PyAstObject {
     
+    public var description: String { name }
+    
     public let type: AstType = .Tuple
     
     public var elts: [PyAstObject]

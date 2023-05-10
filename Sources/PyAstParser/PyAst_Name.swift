@@ -5,6 +5,8 @@ import PythonSwiftCore
 
 public class PyAst_Name: PyAstObject {
     
+    public var description: String { name }
+    
     public let type: AstType = .Name
     
     var id: String

@@ -11,6 +11,8 @@ import Foundation
 import PythonSwiftCore
 
 public class PyAst_Call: PyAstObject {
+    public var description: String { _func.id }
+    
     
     public let type: AstType = .Call
     

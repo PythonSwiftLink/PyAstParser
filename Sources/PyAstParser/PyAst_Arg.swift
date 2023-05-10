@@ -3,6 +3,8 @@ import Foundation
 import PythonSwiftCore
 
 public class PyAst_Arg: PyAstObject {
+    public var description: String { arg }
+    
     
     public let type: AstType = .Arg
     

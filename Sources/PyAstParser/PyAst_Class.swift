@@ -11,6 +11,8 @@ import Foundation
 import PythonSwiftCore
 
 public class PyAst_Class: PyAstObject {
+    public var description: String { name }
+    
     public var type: AstType = .ClassDef
     
     
@@ -30,7 +32,7 @@ public class PyAst_Class: PyAstObject {
 
         body = v.body.map(handlePyAst)
         decorator_list = v.decorator_list.map(handlePyAst)
-
+        bases = v.bases.map(handlePyAst)
         
     }
     

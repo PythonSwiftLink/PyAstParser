@@ -2,6 +2,9 @@ import Foundation
 import PythonSwiftCore
 
 public class PyAst_Dict: PyAstObject {
+    
+    public var description: String { name }
+    
     public var name: String { "None" }
     
     public let type: AstType = .Dict

@@ -4,6 +4,8 @@ import PythonSwiftCore
 
 public class PyAst_Expression: PyAstObject {
     
+    public var description: String { name }
+    
     public let type: AstType = .Expr
     
     public var name: String { value.name }

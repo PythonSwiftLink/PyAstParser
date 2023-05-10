@@ -5,6 +5,8 @@ import PythonSwiftCore
 
 public class PyAst_Subscript: PyAstObject {
     
+    public var description: String { name }
+    
     public let type: AstType = .Subscript
     
     public var name: String {
