@@ -42,7 +42,10 @@ public class PyAst_Assign: PyAstObject {
             value = PyAst_Expression(obj)
         case let obj where obj.IsInstance(Ast.Subscript):
             value = PyAst_Subscript(obj)
+        case let obj where obj.IsInstance(Ast.Constant):
+            value = PyAst_Constant(obj)
         default:
+            v.value._print()
             v.value.print_dict()
             fatalError()
         }

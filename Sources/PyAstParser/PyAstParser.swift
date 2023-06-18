@@ -32,6 +32,8 @@ public enum AstType {
     case Tuple
     case List
     case Dict
+    case With
+    case WithItem
     
 }
 
@@ -96,7 +98,9 @@ public class Ast {
     
     public static let Pow =  PyObject_GetAttrString(py_cls, "Pow")!
     
+    public static let With =  PyObject_GetAttrString(py_cls, "With")!
     
+    public static let WithItem =  PyObject_GetAttrString(py_cls, "withitem")!
     
     init() {
         
@@ -149,6 +153,10 @@ public func handlePyAst(_ v: PythonObject) -> PyAstObject {
         return PyAst_Dict(obj)
     case let obj where obj.IsInstance(Ast.Tuple):
         return PyAst_Tuple(obj)
+    case let obj where obj.IsInstance(Ast.With):
+        return PyAst_With(obj)
+    case let obj where obj.IsInstance(Ast.WithItem):
+        return PyAst_WithItem(obj)
     case let obj where obj.isNone:
         return PyAst_Name(obj)
     default:
