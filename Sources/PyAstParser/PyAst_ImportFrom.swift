@@ -27,5 +27,11 @@ public class PyAst_ImportFrom: PyAstObject {
 //        v.print_dict()
     }
     
-    
+	public var pyObject: PythonSwiftCore.PythonObject {
+		fatalError()
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		fatalError()
+	}
 }

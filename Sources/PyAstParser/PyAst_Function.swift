@@ -8,9 +8,19 @@
 
 import Foundation
 import PythonSwiftCore
-
+import PythonLib
 
 public class PyAst_Function: PyAstObject {
+	public init(name: String, body: [PyAstObject] = [], args: [PyAst_Arg], keywords: [PyAstObject] = [], decorator_list: [PyAstObject], returns: PyAstObject? = nil) {
+		self.name = name
+		self.body = body
+		self.args = args
+		self.keywords = keywords
+		self.decorator_list = decorator_list
+		self.returns = returns
+		
+	}
+	
     
     public var description: String { name }
     
@@ -33,5 +43,22 @@ public class PyAst_Function: PyAstObject {
         returns = handlePyAst(v.returns)
     }
     
+	public var pyObject: PythonSwiftCore.PythonObject {
+		fatalError()
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		let arguments = try! buildAstArguments(args: args, returns: returns)
+		let dec_list = PyList_New(0)!
+		let function: PyPointer = try! Ast.FunctionDef(
+			name,
+			arguments,
+			body.pyPointer,
+			dec_list,
+			(returns?.pyPointer) ?? .PyNone
+		)
+		
+		return function
+	}
     
 }

@@ -11,6 +11,8 @@ import PythonSwiftCore
 
 
 public class PyAst_Module: PyAstObject {
+	
+	
     
     public var description: String { name }
     
@@ -28,5 +30,20 @@ public class PyAst_Module: PyAstObject {
         body = v.body.map(handlePyAst)
         
     }
+	
+	public init(body: [PyAstObject]) {
+		self.body = body
+	}
     
+	
+}
+
+extension PyAst_Module: PyEncodable {
+	public var pyObject: PythonSwiftCore.PythonObject {
+		.init(getter: pyPointer)
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		try! Ast.Module(body.pyPointer)
+	}
 }

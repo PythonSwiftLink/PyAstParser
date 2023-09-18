@@ -34,7 +34,13 @@ public class PyAst_Keyword: PyAstObject {
         value = handlePyAst(v.value)
     }
     
-    
+	public var pyObject: PythonSwiftCore.PythonObject {
+		fatalError()
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		fatalError()
+	}
 }
 
 

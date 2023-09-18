@@ -11,6 +11,8 @@ import Foundation
 import PythonSwiftCore
 
 public class PyAst_Class: PyAstObject {
+	
+	
     public var description: String { name }
     
     public var type: AstType = .ClassDef
@@ -36,4 +38,36 @@ public class PyAst_Class: PyAstObject {
         
     }
     
+	public init(name: String, body: [PyAstObject], bases: [PyAstObject] = [], keywords: [PyAstObject] = [], decorator_list: [PyAstObject]) {
+		self.name = name
+		self.body = body
+		self.bases = bases
+		self.keywords = keywords
+		self.decorator_list = decorator_list
+	}
+	
+	public var pyObject: PythonSwiftCore.PythonObject {
+		.init(getter: pyPointer)
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		
+//	name: _Identifier
+//	bases: list[expr]
+//	keywords: list[keyword]
+//	body: list[stmt]
+//	decorator_list: list[expr]
+		
+		
+		
+		let cls: PyPointer = try! Ast.ClassDef(
+			name.pyPointer.xINCREF,
+			bases.pyPointer,
+			keywords.pyPointer,
+			body.pyPointer,
+			decorator_list.pyPointer
+		)
+		
+		return cls
+	}
 }

@@ -34,6 +34,8 @@ public enum AstType {
     case Dict
     case With
     case WithItem
+	
+	case Str
     
 }
 
@@ -111,7 +113,7 @@ public class Ast {
 }
 
 
-public protocol PyAstObject: CustomStringConvertible {
+public protocol PyAstObject: CustomStringConvertible, PyEncodable {
     
     var name: String { get }
     
@@ -119,6 +121,7 @@ public protocol PyAstObject: CustomStringConvertible {
     
     init(_ v: PythonObject)
     
+	
 }
 
 
@@ -189,4 +192,20 @@ extension String {
         }
         
     }
+}
+
+extension String: PyAstObject {
+	public init(_ v: PythonSwiftCore.PythonObject) {
+		self = (.init(object: v)) ?? ""
+	}
+	
+	public var name: String {
+		self
+	}
+	
+	public var type: AstType {
+		.Str
+	}
+	
+	
 }

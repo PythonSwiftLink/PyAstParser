@@ -18,5 +18,11 @@ public class PyAst_Dict: PyAstObject {
         values = v.values.map(handlePyAst)
     }
     
-    
+	public var pyObject: PythonSwiftCore.PythonObject {
+		fatalError()
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		fatalError()
+	}
 }
