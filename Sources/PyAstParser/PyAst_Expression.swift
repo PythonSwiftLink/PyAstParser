@@ -17,4 +17,12 @@ public class PyAst_Expression: PyAstObject {
         value = .init(v.value)
 
     }
+	
+	public var pyObject: PythonSwiftCore.PythonObject {
+		fatalError()
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		fatalError()
+	}
 }

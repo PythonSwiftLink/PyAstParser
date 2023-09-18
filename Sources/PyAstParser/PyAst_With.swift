@@ -21,7 +21,13 @@ public class PyAst_With: PyAstObject {
 
     }
     
-    
+	public var pyObject: PythonSwiftCore.PythonObject {
+		fatalError()
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		fatalError()
+	}
 }
 
 public class PyAst_WithItem: PyAstObject {
@@ -41,5 +47,11 @@ public class PyAst_WithItem: PyAstObject {
         
     }
     
-    
+	public var pyObject: PythonSwiftCore.PythonObject {
+		fatalError()
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		fatalError()
+	}
 }

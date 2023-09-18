@@ -19,5 +19,11 @@ public class PyAst_List: PyAstObject {
 
     }
     
-    
+	public var pyObject: PythonSwiftCore.PythonObject {
+		fatalError()
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		fatalError()
+	}
 }

@@ -3,6 +3,11 @@ import Foundation
 import PythonSwiftCore
 
 public class PyAst_Arg: PyAstObject {
+	public init(arg: String, annotation: PyAstObject? = nil) {
+		self.arg = arg
+		self.annotation = annotation
+	}
+	
     public var description: String { arg }
     
     
@@ -23,5 +28,15 @@ public class PyAst_Arg: PyAstObject {
         }
     }
     
-    
+    enum CodingKeys: CodingKey {
+            case id
+        }
+
+	public var pyObject: PythonSwiftCore.PythonObject {
+		fatalError()
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		"\(name): \(annotation?.name ?? "object")".pyPointer
+	}
 }

@@ -32,6 +32,8 @@ public class PyAst_Constant: PyAstObject {
             value = _bool == PythonTrue ? "true": "false"
         case let _str where PythonUnicode_Check(_value):
             value = _str!.string
+		case let _int where PythonLong_Check(_value):
+			value = "\(try! Int(object: _int!.pyPointer))"
         case let _none where _none == PythonNone:
             value = "None"
         default:
@@ -42,5 +44,11 @@ public class PyAst_Constant: PyAstObject {
     
     
     
-    
+	public var pyObject: PythonSwiftCore.PythonObject {
+		fatalError()
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		fatalError()
+	}
 }

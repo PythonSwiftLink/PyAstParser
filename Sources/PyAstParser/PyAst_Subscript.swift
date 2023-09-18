@@ -48,5 +48,11 @@ public class PyAst_Subscript: PyAstObject {
         
     }
     
-    
+	public var pyObject: PythonSwiftCore.PythonObject {
+		fatalError()
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		fatalError()
+	}
 }

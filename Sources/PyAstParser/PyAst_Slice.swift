@@ -18,5 +18,11 @@ public class PyAst_Slice: PyAstObject {
         fatalError("\(self)")
     }
     
-    
+	public var pyObject: PythonSwiftCore.PythonObject {
+		fatalError()
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		fatalError()
+	}
 }

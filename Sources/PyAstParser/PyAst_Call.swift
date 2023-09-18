@@ -34,5 +34,11 @@ public class PyAst_Call: PyAstObject {
 
     }
     
-    
+	public var pyObject: PythonSwiftCore.PythonObject {
+		fatalError()
+	}
+	
+	public var pyPointer: PythonSwiftCore.PyPointer {
+		fatalError()
+	}
 }
