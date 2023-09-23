@@ -40,7 +40,6 @@ public class PyAst_Function: PyAstObject {
         args = _args.args.map(PyAst_Arg.init)
         decorator_list = v.decorator_list.map(handlePyAst)
 		defaults = _args.defaults.map(handlePyAst)
-		print(defaults)
         returns = handlePyAst(v.returns)
     }
     
