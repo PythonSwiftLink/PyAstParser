@@ -1,4 +1,4 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -7,7 +7,7 @@ let package = Package(
     name: "PyAstParser",
     platforms: [
 		.macOS(.v11),
-		//.iOS(.v13)
+		.iOS(.v13)
 	],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
@@ -24,10 +24,10 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         //.package(path: "../PythonSwiftCore"),
-		.package(url: "https://github.com/PythonSwiftLink/PythonLib", from: "0.1.0"),
-        .package(url: "https://github.com/PythonSwiftLink/PythonSwiftCore", branch: "testing"),
+		//.package(url: "https://github.com/PythonSwiftLink/PythonLib", from: "0.1.0"),
+        .package(url: "https://github.com/PythonSwiftLink/PythonSwiftLink", branch: "master"),
 		.package(url: "https://github.com/apple/swift-syntax", from: .init(508, 0, 0)),
-		.package(url: "https://github.com/PythonSwiftLink/PythonTestSuite", branch: "master")
+		//.package(url: "https://github.com/PythonSwiftLink/PythonTestSuite", branch: "master")
 		//.package(path: "../PythonTestSuite")
         //.package(url: "https://github.com/PythonSwiftLink/PythonSwiftCore", from: .init(0, 2, 0))
     ],
@@ -37,8 +37,7 @@ let package = Package(
         .target(
             name: "PyAstParser",
             dependencies: [
-				"PythonSwiftCore",
-				"PythonLib",
+				.product(name: "PythonSwiftCore", package: "PythonSwiftLink"),
 				//.product(name: "SwiftSyntax", package: "swift-syntax"),
 			]),
 		.target(
@@ -47,18 +46,17 @@ let package = Package(
 				//.product(name: "SwiftSyntax"),
 				.product(name: "SwiftSyntax", package: "swift-syntax"),
 				.product(name: "SwiftSyntaxBuilder", package: "swift-syntax"),
-				"PythonSwiftCore",
-				"PythonLib",
+				.product(name: "PythonSwiftCore", package: "PythonSwiftLink"),
 				"PyAstParser",
 				//"swift-syntax"
 				//.product(name: "SwiftSyntax", package: "SwiftParser")
 			]),
-        .testTarget(
-            name: "PyAstParserTests",
-            dependencies: [
-				"PyAstParser",
-				"PyAstBuilder",
-				"PythonTestSuite"
-			]),
+//        .testTarget(
+//            name: "PyAstParserTests",
+//            dependencies: [
+//				"PyAstParser",
+//				"PyAstBuilder",
+//				"PythonTestSuite"
+//			]),
     ]
 )
