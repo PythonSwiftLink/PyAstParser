@@ -1,10 +1,9 @@
 
 
-.swiftpm/xcode/xcuserdata/musicmaker.xcuserdatad/xcschemes/xcschememanagement.plist
 Package.resolved
 *.xcworkspacedata
 **/.DS_Store
 .DS_Store
-.swiftpm/xcode/xcuserdata/codebuilder.xcuserdatad/xcschemes/xcschememanagement.plist
+.swiftpm/
 *.xcuserstate
-
+.build/
