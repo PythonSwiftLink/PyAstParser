@@ -21,15 +21,14 @@ let package = Package(
 //		)
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
-        //.package(path: "../PythonSwiftCore"),
+      
+        //.package(path: "../PythonSwiftLink"),
 		//.package(url: "https://github.com/PythonSwiftLink/PythonLib", from: "0.1.0"),
-        .package(url: "https://github.com/PythonSwiftLink/PythonSwiftLink", branch: "master"),
+		.package(url: "https://github.com/PythonSwiftLink/PythonSwiftLink",from: .init(0, 0, 0)),
 		.package(url: "https://github.com/apple/swift-syntax", from: .init(508, 0, 0)),
 		//.package(url: "https://github.com/PythonSwiftLink/PythonTestSuite", branch: "master")
 		//.package(path: "../PythonTestSuite")
-        //.package(url: "https://github.com/PythonSwiftLink/PythonSwiftCore", from: .init(0, 2, 0))
+
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
