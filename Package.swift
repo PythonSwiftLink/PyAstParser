@@ -24,7 +24,7 @@ let package = Package(
       
         //.package(path: "../PythonSwiftLink"),
 		//.package(url: "https://github.com/PythonSwiftLink/PythonLib", from: "0.1.0"),
-		.package(url: "https://github.com/PythonSwiftLink/PythonSwiftLink",from: .init(0, 0, 0)),
+		.package(url: "https://github.com/PythonSwiftLink/PythonSwiftLink",from: .init(311, 0, 0)),
 		.package(url: "https://github.com/apple/swift-syntax", from: .init(508, 0, 0)),
 		//.package(url: "https://github.com/PythonSwiftLink/PythonTestSuite", branch: "master")
 		//.package(path: "../PythonTestSuite")
