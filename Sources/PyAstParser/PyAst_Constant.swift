@@ -7,7 +7,7 @@
 
 import Foundation
 import PythonSwiftCore
-import PythonLib
+//import PythonLib
 
 public class PyAst_Constant: PyAstObject {
     

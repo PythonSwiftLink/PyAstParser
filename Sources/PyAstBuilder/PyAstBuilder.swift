@@ -3,7 +3,7 @@ import Foundation
 import PyAstParser
 import SwiftSyntax
 import SwiftParser
-import PythonLib
+//import PythonLib
 import PythonSwiftCore
 
 let math = PyImport_ImportModule("math")!

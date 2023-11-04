@@ -1,5 +1,5 @@
 import XCTest
-import PythonLib
+//import PythonLib
 import PythonSwiftCore
 @testable import PyAstParser
 @testable import PythonTestSuite

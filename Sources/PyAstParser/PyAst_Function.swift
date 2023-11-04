@@ -8,7 +8,7 @@
 
 import Foundation
 import PythonSwiftCore
-import PythonLib
+//import PythonLib
 
 public class PyAst_Function: PyAstObject {
 	public init(name: String, body: [PyAstObject] = [], args: [PyAst_Arg], keywords: [PyAstObject] = [], decorator_list: [PyAstObject], returns: PyAstObject? = nil) {
