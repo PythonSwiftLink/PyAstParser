@@ -1,211 +1,315 @@
-//
-//  PyAstParser.swift
-//
-
 import Foundation
-//import PythonLib
-import PythonSwiftCore
+import PyCodable
+import PySwiftKit
+import PyAst
+import SwiftSyntax
+import SwiftParser
+import ArgumentParser
+import PathKit
+import PyCallable
+import PySerializing
 
-extension PyPointer {
-    var string: String { .init(cString: PyUnicode_AsUTF8(self)) }
-}
-
-public enum AstType {
-    case ImportFrom
-    case Module
-    case FunctionDef
-    case ClassDef
-    case Call
-    case Slice
-    case Subscript
+@main
+struct PyAstParser: AsyncParsableCommand {
     
-    case Annotation
-    case Expr
-    case Keyword
-    case Constant
+    static var configuration: CommandConfiguration = .init(
+        version: "0.0.1 ",
+        subcommands: [
+            Dump.self,
+            //VenvDump.self
+        ],
+        defaultSubcommand: Dump.self
+    )
     
-    case Name
-    case Assign
-    case AnnAssign
-    
-    case Arg
-    case Tuple
-    case List
-    case Dict
-    case With
-    case WithItem
-	
-	case Str
-    
-}
-
-public class Ast {
-    
-    public static let shared = Ast()
-    
-    public static let py_cls = PyImport_ImportModule("ast")
-    
-    
-    public static let FunctionDef =  PyObject_GetAttrString(py_cls, "FunctionDef")!
-    public static let ClassDef =  PyObject_GetAttrString(py_cls, "ClassDef")!
-    
-    public static let AnnAssign =  PyObject_GetAttrString(py_cls, "AnnAssign")!
-    public static let Subscript =  PyObject_GetAttrString(py_cls, "Subscript")!
-    
-    public static let Assign =  PyObject_GetAttrString(py_cls, "Assign")!
-    public static let Module =  PyObject_GetAttrString(py_cls, "Module")!
-    public static let stmt =  PyObject_GetAttrString(py_cls, "stmt")!
-    public static let arg =  PyObject_GetAttrString(py_cls, "arg")!
-    public static let Slice =  PyObject_GetAttrString(py_cls, "Slice")!
-    public static let keyword =  PyObject_GetAttrString(py_cls, "keyword")!
-    public static let Call =  PyObject_GetAttrString(py_cls, "Call")!
-    public static let arguments =  PyObject_GetAttrString(py_cls, "arguments")!
-    public static let str = PyObject_GetAttrString(py_cls, "str")!
-//    public static let FunctionDef =  PyObject_GetAttrString(py_cls, "FunctionDef")
-//    public static let FunctionDef =  PyObject_GetAttrString(py_cls, "FunctionDef")
-//    public static let FunctionDef =  PyObject_GetAttrString(py_cls, "FunctionDef")
-    public static let ImportFrom = PyObject_GetAttr(py_cls, "ImportFrom")!
-    
-    public static let Constant =  PyObject_GetAttrString(py_cls, "Constant")!
-    
-    public static let Expr =  PyObject_GetAttrString(py_cls, "Expr")!
-    
-    public static let NamedExpr =  PyObject_GetAttrString(py_cls, "NamedExpr")!
-    
-    public static let Name =  PyObject_GetAttrString(py_cls, "Name")!
-    
-    public static let AugAssign =  PyObject_GetAttrString(py_cls, "AugAssign")!
-    
-    public static let Attribute =  PyObject_GetAttrString(py_cls, "Attribute")!
-    
-    public static let List =  PyObject_GetAttrString(py_cls, "List")!
-    
-    public static let Dict =  PyObject_GetAttrString(py_cls, "Dict")!
-    
-    public static let Tuple =  PyObject_GetAttrString(py_cls, "Tuple")!
-    
-    public static let BinOp =  PyObject_GetAttrString(py_cls, "BinOp")!
-    
-    public static let Add =  PyObject_GetAttrString(py_cls, "Add")!
-    
-    public static let Div =  PyObject_GetAttrString(py_cls, "Div ")!
-    
-    public static let Sub =  PyObject_GetAttrString(py_cls, "Sub")!
-    
-    public static let Mult =  PyObject_GetAttrString(py_cls, "Mult")!
-    
-    public static let FloorDiv =  PyObject_GetAttrString(py_cls, "FloorDiv")!
-    
-    public static let Mod =  PyObject_GetAttrString(py_cls, "Mod")!
-    
-    public static let Pow =  PyObject_GetAttrString(py_cls, "Pow")!
-    
-    public static let With =  PyObject_GetAttrString(py_cls, "With")!
-    
-    public static let WithItem =  PyObject_GetAttrString(py_cls, "withitem")!
-    
-    init() {
-        
-    }
-    
-    
-    
-}
-
-
-public protocol PyAstObject: CustomStringConvertible, PyEncodable {
-    
-    var name: String { get }
-    
-    var type: AstType { get }
-    
-    init(_ v: PythonObject)
-    
-	
-}
-
-
-public func handlePyAst(_ v: PythonObject) -> PyAstObject {
-    switch v {
-        
-    case let obj where obj.IsInstance(Ast.Module):
-        fatalError()
-    case let obj where obj.IsInstance(Ast.ClassDef):
-        return PyAst_Class(obj)
-    case let obj where obj.IsInstance(Ast.FunctionDef):
-        return PyAst_Function(obj)
-    case let obj where obj.IsInstance(Ast.Constant):
-        return PyAst_Constant(obj)
-    case let obj where obj.IsInstance(Ast.Name):
-        return PyAst_Name(obj)
-    case let obj where obj.IsInstance(Ast.Expr):
-        return PyAst_Expression(obj)
-    case let obj where obj.IsInstance(Ast.Assign):
-        return PyAst_Assign(obj)
-    case let obj where obj.IsInstance(Ast.AnnAssign):
-        fatalError()
-    case let obj where obj.IsInstance(Ast.ImportFrom):
-        return PyAst_ImportFrom(obj)
-    case let obj where obj.IsInstance(Ast.Subscript):
-        return PyAst_Subscript(obj)
-    case let obj where obj.IsInstance(Ast.Call):
-        return PyAst_Call(obj)
-    case let obj where obj.IsInstance(Ast.List):
-        return PyAst_List(obj)
-    case let obj where obj.IsInstance(Ast.Dict):
-        return PyAst_Dict(obj)
-    case let obj where obj.IsInstance(Ast.Tuple):
-        return PyAst_Tuple(obj)
-    case let obj where obj.IsInstance(Ast.With):
-        return PyAst_With(obj)
-    case let obj where obj.IsInstance(Ast.WithItem):
-        return PyAst_WithItem(obj)
-    case let obj where obj.isNone:
-        return PyAst_Name(obj)
-    default:
-        print()
-        pyPrint(v.ptr ?? .PyNone)
-        v.print_dict()
-        fatalError()
+    static func launchPython() throws {
+        let python = PythonHandler.shared
+        //try PythonFiles.checkModule()
+        if !python.defaultRunning {
+            python.start(
+                stdlib: "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11",
+                app_packages: [
+                    //PythonFiles.py_modules
+                ],
+                debug: true
+            )
+        }
     }
 }
 
-protocol PyAstProtocol: RawRepresentable {
+func toml_file(name: String) -> String {
+    """
+    [project]
+    name = "\(name)"
+    version = "0.1.0"
+    description = "Add your description here"
+      
+    requires-python = ">=3.11"
+    dependencies = []
+    """
+}
 
-    var value: PythonObject { get set }
+extension PyAstParser {
+    struct Dump: AsyncParsableCommand {
+        
+        @Argument var files: [Path]
+        @Option var output: Path?
+        
+        func run() async throws {
+            guard let output else { return }
+            try launchPython()
+            //let file = input
+            let decls = files.declSyntax()
+            
+            let py_classes = decls.compactMap { decl in
+                switch decl.as(DeclSyntaxEnum.self) {
+                case .classDecl(let classDecl):
+                    classDecl
+                default: nil
+                }
+            }
+            
+            let py_modules = decls.compactMap { decl in
+                switch decl.as(DeclSyntaxEnum.self) {
+                case .structDecl(let structDecl):
+                    structDecl
+                default: nil
+                }
+            }
+            
+            
+            
+            
+            for py_module in py_modules {
+                var included_classes: [ClassDeclSyntax] = []
+                for member in py_module.memberBlock.members {
+                    switch member.decl.as(DeclSyntaxEnum.self) {
+                    case .variableDecl(let variableDecl):
+                        if let binding = variableDecl.bindings.first {
+                            switch binding.initializer?.value.as(ExprSyntaxEnum.self) {
+                            case .arrayExpr(let arrayExpr):
+                                switch binding.pattern.as(PatternSyntaxEnum.self) {
+                                case .expressionPattern(let expressionPattern):
+                                    break
+                                case .identifierPattern(let identifierPattern):
+                                    if identifierPattern.identifier.trimmed.text == "py_classes" {
+                                        let classes = arrayExpr.elements.compactMap { element in
+                                           switch element.expression.as(ExprSyntaxEnum.self) {
+                                           case .memberAccessExpr(let memberAccessExpr):
+                                               switch memberAccessExpr.base?.as(ExprSyntaxEnum.self) {
+                                               case .declReferenceExpr(let declReferenceExpr):
+                                                   return py_classes.first { cls in
+                                                       cls.name.trimmedDescription == declReferenceExpr.baseName.text
+                                                   }
+                                               default: return nil
+                                               }
+                                           default: return nil
+                                            }
+                                        }
+                                        included_classes.append(contentsOf: classes)
+                                    }
+                                default: break
+                                }
+                            default: break
+                            }
+                        }
+                    
+                    default: break
+                    }
+                }
+                
+                let ast_module = AST.Module(syntax: py_module, classes: included_classes)
+                let py_code = try Decompiler().decompile(ast: ast_module)
+                let module_name = py_module.name.text.camelCaseToSnakeCase()
+                let dest = (output + "\(module_name).py")
+                print("PyAstParser:",dest)
+                try dest.write(py_code, encoding: .utf8)
+                let toml = output + "../pyproject.toml"
+                try toml.write(toml_file(name: module_name), encoding: .utf8)
+            }
+           
+        }
+    }
+}
 
-    var repr: String { get }
+extension Path: ArgumentParser.ExpressibleByArgument {
+    public init?(argument: String) {
+        self = .init(argument)
+    }
 }
 
 
-extension String {
-    init?(object: PythonObject) {
-        let ptr = object.ptr
-        guard ptr != nil else { return nil }
+let ast_parser = PyImport(from: "ast", import_name: "parser")
+
+func astParse(_ string: String) -> PyPointer {
+    var string = string
+    let str: PyPointer = string.withUTF8 { utf8 in
+        PyUnicode_FromKindAndData(1, utf8.baseAddress, utf8.count)
+    }
+    defer { str.decref() }
+    if let result = PyObject_CallOneArg(ast_parser, str) {
+        return result
+    }
+    PyErr_Print()
+    fatalError()
+}
+
+public extension AST {
+    static func parseFile(url: URL) throws -> Module {
+        let decoder = PyDecoder()
+        let ast_object = astParse(try .init(contentsOf: url))
+        return try decoder.decode(Module.self, from: ast_object)
+    }
+    static func parseString(_ string: String) throws -> Module {
+        let decoder = PyDecoder()
+        let ast_object = astParse(string)
+        return try decoder.decode(Module.self, from: ast_object)
+    }
+}
+
+public extension SwiftSyntax.SourceFileSyntax {
+    func py_module() -> AST.Module {
+        .init(syntax: self)
+    }
+    
+    func classes() -> [AST.ClassDef] {
+        py_module().body.compactMap { stmt -> AST.ClassDef? in
+            switch stmt.type {
+            case .ClassDef:
+                stmt as? AST.ClassDef
+            default:
+                nil
+            }
+        }
+    }
+    
+    func asPyFile() throws -> String {
+        let ast = py_module()
         
-        if PythonUnicode_Check(object.ptr) {
-            self.init(cString: PyUnicode_AsUTF8(object.ptr))
-        } else {
-            let str = PyUnicode_FromObject(object.ptr)
-            self.init(cString: PyUnicode_AsUTF8(str))
-            str?.decref()
+        let py_code = try Decompiler().decompile(ast: ast)
+        
+        
+        return py_code.replacingOccurrences(of: ", /)", with: ")")
+    }
+}
+
+extension PathKit.Path {
+    var fileSyntax: SourceFileSyntax? {
+        guard exists, self.extension == "swift" else { return nil }
+        return Parser.parse(source: try! read())
+    }
+}
+
+public extension Array where Element == PathKit.Path {
+    
+    func statements() -> [CodeBlockItemSyntax.Item] {
+        lazy.compactMap(\.fileSyntax).compactMap({ file -> [CodeBlockItemSyntax.Item] in
+            file.statements.map(\.item)
+        }).flatMap(\.self)
+    }
+    
+    func declSyntax() -> [DeclSyntax] {
+        statements().compactMap { member in
+            switch member {
+            case .decl(let declSyntax):
+                switch declSyntax.as(DeclSyntaxEnum.self) {
+                case .classDecl(let classDecl):
+                    if classDecl.attributes.contains(where: {["@PyClass", "@PyClassByExtension"].contains($0.trimmedDescription)})
+                    {
+                        return .init(classDecl)
+                    }
+                case .structDecl(let structDecl):
+                    if structDecl.attributes.contains(where: {$0.trimmedDescription == "@PyModule"})
+                    {
+                        return .init(structDecl)
+                    }
+                default: break
+                }
+            case .stmt(let stmtSyntax):
+                break
+            case .expr(let exprSyntax):
+                break
+            }
+            return nil
+        }
+    }
+    func py_modules() throws -> [(String, String)] {
+        
+        let statements = statements()
+        
+        let module_structs = statements.compactMap { item in
+            switch item.kind {
+            case .structDecl:
+                if
+                    let structDecl = item.as(StructDeclSyntax.self),
+                    structDecl.attributes.contains(where: {$0.trimmedDescription == "@PyModule"})
+                {
+                    return structDecl
+                }
+                return nil
+            default: return nil
+            }
         }
         
+        let pyclassDecls = statements.compactMap { item in
+            switch item.kind {
+            case .classDecl:
+                if
+                    let classDecl = item.as(ClassDeclSyntax.self),
+                    classDecl.attributes.contains(where: {["@PyClass", "@PyClassByExtension"].contains($0.trimmedDescription)})
+                {
+                    return classDecl
+                }
+                return nil
+            default: return nil
+            }
+        }
+        
+        return try lazy.compactMap(\.fileSyntax).compactMap { file in
+            let is_pymodule = file.statements.contains { blockitem in
+                let item = blockitem.item
+                switch item.kind {
+                case .structDecl:
+                    return item.as(StructDeclSyntax.self)!.attributes.contains(where: {$0.trimmedDescription == "@PyModule"})
+                default: return false
+                }
+            }
+            if is_pymodule {
+                let ast = file.py_module()
+                let py_code = try Decompiler().decompile(ast: ast).replacingOccurrences(of: ", /)", with: ")")
+                return (ast.name, py_code)
+            }
+            
+            return nil
+        }
     }
 }
 
-extension String: PyAstObject {
-	public init(_ v: PythonSwiftCore.PythonObject) {
-		self = (.init(object: v)) ?? ""
-	}
-	
-	public var name: String {
-		self
-	}
-	
-	public var type: AstType {
-		.Str
-	}
-	
-	
+public class Decompiler {
+    
+    init() {
+        let g = PyDict_New()!
+        PyRun_String(
+            py_decompiler,
+            Py_file_input,
+            g,
+            g
+        )
+        module = g
+        _decompile = PyDict_GetItemString(module, "decompile")!
+    }
+    private let module: PyPointer
+    private let _decompile: PyPointer
+    public static let shared = Decompiler()
+//    ? = {
+//        return PyDict_GetItemString(module, "decompile")!
+//    }()
+    
+    
+    public func decompile(ast: PySerialize) throws -> String {
+        try PythonCallWithGil(call: _decompile, ast)
+    }
+    deinit {
+        module.decref()
+        _decompile.decref()
+    }
 }

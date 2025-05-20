@@ -6,56 +6,41 @@ import PackageDescription
 let package = Package(
     name: "PyAstParser",
     platforms: [
-		.macOS(.v11),
-		.iOS(.v13)
-	],
+        .macOS(.v13)
+    ],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
-        .library(
+        // Products define the executables and libraries a package produces, making them visible to other packages.
+        .executable(
             name: "PyAstParser",
-            targets: ["PyAstParser"]),
-//		.library(
-//			name: "PyAstBuilder",
-//			type: .static,
-//			targets: ["PyAstBuilder"]
-//		)
+            targets: ["PyAstParser"]
+        ),
     ],
     dependencies: [
-      
-        //.package(path: "../PythonSwiftLink"),
-		//.package(url: "https://github.com/PythonSwiftLink/PythonLib", from: "0.1.0"),
-		.package(url: "https://github.com/PythonSwiftLink/PythonSwiftLink",from: .init(311, 0, 0)),
-		.package(url: "https://github.com/apple/swift-syntax", from: .init(508, 0, 0)),
-		//.package(url: "https://github.com/PythonSwiftLink/PythonTestSuite", branch: "master")
-		//.package(path: "../PythonTestSuite")
-
+        .package(path: "../PyAst"),
+        .package(path: "../PyCodable"),
+        .package(path: "../PySwiftWrapper"),
+        //.package(url: "https://github.com/PythonSwiftLink/PyCodable", from: .init(0, 0, 0)),
+        .package(url:  "https://github.com/PythonSwiftLink/PySwiftKit", from: .init(311, 0, 0)),
+        .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "600.0.0"),
+        .package(url: "https://github.com/kylef/PathKit", .upToNextMajor(from: "1.0.1")),
+        .package(url: "https://github.com/apple/swift-argument-parser", from: .init(1, 2, 0)),
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
-        .target(
+        // Targets are the basic building blocks of a package, defining a module or a test suite.
+        // Targets can depend on other targets in this package and products from dependencies.
+        .executableTarget(
             name: "PyAstParser",
             dependencies: [
-				.product(name: "PythonSwiftCore", package: "PythonSwiftLink"),
-				//.product(name: "SwiftSyntax", package: "swift-syntax"),
-			]),
-		.target(
-			name: "PyAstBuilder",
-			dependencies: [
-				//.product(name: "SwiftSyntax"),
-				.product(name: "SwiftSyntax", package: "swift-syntax"),
-				.product(name: "SwiftSyntaxBuilder", package: "swift-syntax"),
-				.product(name: "PythonSwiftCore", package: "PythonSwiftLink"),
-				"PyAstParser",
-				//"swift-syntax"
-				//.product(name: "SwiftSyntax", package: "SwiftParser")
-			]),
-//        .testTarget(
-//            name: "PyAstParserTests",
-//            dependencies: [
-//				"PyAstParser",
-//				"PyAstBuilder",
-//				"PythonTestSuite"
-//			]),
+                "PyAst",
+                .product(name: "SwiftonizeModules", package: "PySwiftKit"),
+                "PyCodable",
+                "PathKit",
+                .product(name: "SwiftSyntax", package: "swift-syntax"),
+                .product(name: "SwiftParser", package: "swift-syntax"),
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                "PySwiftWrapper"
+            ]
+        ),
+
     ]
 )
