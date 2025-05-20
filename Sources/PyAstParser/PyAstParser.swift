@@ -8,7 +8,7 @@ import ArgumentParser
 import PathKit
 import PyCallable
 import PySerializing
-
+import PySwiftWrapper
 @main
 struct PyAstParser: AsyncParsableCommand {
     
@@ -287,6 +287,7 @@ public extension Array where Element == PathKit.Path {
 public class Decompiler {
     
     init() {
+        
         let g = PyDict_New()!
         PyRun_String(
             py_decompiler,
@@ -304,10 +305,8 @@ public class Decompiler {
 //        return PyDict_GetItemString(module, "decompile")!
 //    }()
     
-    
-    public func decompile(ast: PySerialize) throws -> String {
-        try PythonCallWithGil(call: _decompile, ast)
-    }
+    @PyCall
+    public func decompile(ast: PySerialize) throws -> String
     deinit {
         module.decref()
         _decompile.decref()
